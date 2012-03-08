@@ -145,6 +145,12 @@ public class MarkdownFormatter
         nextChar = text[i+1];
       else
         nextChar = 0;
+      System.out.print(System.getProperty("line.separator"));
+      System.out.print("'" + c + "'");
+      System.out.print(" word '" + word.toString() + 
+    		  "', indent '" + indent.toString() + 
+    		  "', buffer '" + buffer.toString() + "'");
+      
       
       // Are we actually word-wrapping?
       if (endWordwrap1 != 0) {
@@ -212,10 +218,10 @@ public class MarkdownFormatter
         }
 
         if (Character.isWhitespace (c))
-          indent.append (c);
+          indent.append ('.');
         else if ( (c == '*' || c == '-' || c == '.' ) &&
                 Character.isWhitespace (nextChar) )
-          indent.append (' ');
+          indent.append ('_');
         else if ( Character.isDigit (c) && nextChar == '.' &&
                 Character.isWhitespace (text[i+2]))
           indent.append (' ');

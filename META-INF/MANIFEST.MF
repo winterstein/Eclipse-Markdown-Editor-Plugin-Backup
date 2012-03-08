@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.views
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Import-Package: org.eclipse.core.internal.resources,
+Import-Package: junit.framework,
+ org.eclipse.core.internal.resources,
  org.eclipse.jface.text,
  org.eclipse.ui.texteditor
 Bundle-ClassPath: lib/markdownj-1.0.2b4-0.3.0.jar,
