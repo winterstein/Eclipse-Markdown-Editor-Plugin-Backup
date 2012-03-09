@@ -174,48 +174,54 @@ public class MarkdownFormatterTest extends TestCase
   public static void testSubindentedBulletedLists () throws Exception
   {
     final String LONG_LINE = 
-//      "Now is the time for all good " +
-//      "chickens to:" + LINEEND + LINEEND +
-      " * Cc Bb" + LINEEND +
-      " A" + LINEEND + 
-      "   * Dd Ee" + LINEEND + 
-      " * Ff";
-//      "   * And maybe again and again if their mommy's say so." + LINEEND +
-//      "     * We can indent really, really, deep with three levels of subitems." + LINEEND +
-//      "     * But we aren't sure if this is getting ridiculous or just plain expected." + LINEEND +
-//      " * Sing, sing, sing till their little voices break:" + LINEEND +
-//      "   * Do it again and again and again and again." + LINEEND + 
-//      "   * And maybe again and again if their mommy's say so." + LINEEND +
-//      " * Drink coopertino lattes.";
+//      " * Cc Bb" + LINEEND +
+//      " A" + LINEEND + 
+//      "   * Dd Ee" + LINEEND + 
+//      " * Ff";
+      "Now is the time for all good " +
+      "chickens to:" + LINEEND + LINEEND +
+      " * Cluck, cluck, cluck till their little feets hurt:" + LINEEND +
+      "   * Do it again and again and again and again." + LINEEND + 
+      "   * And maybe again and again if their mommy's say so." + LINEEND +
+      "     * We can indent really, really, deep with three levels of subitems." + LINEEND +
+      "     * But we aren't sure if this is getting ridiculous or just plain expected." + LINEEND +
+      " * Sing, sing, sing till their little voices break:" + LINEEND +
+      "   * Do it again and again and again and again." + LINEEND + 
+      "   * And maybe again and again if their mommy's say so." + LINEEND +
+      " * Drink coopertino lattes.";
     final String EXPECTED = 
-//      "Now is the time for all good" + LINEEND +
-//      "chickens to:" + LINEEND + LINEEND +
-      " * Cc" + LINEEND +
-      "   Bb A" + LINEEND + 
-      "   * Dd" + LINEEND +
-      "     Ee" + LINEEND + 
-      " * Ff"; 
-//      "   * And maybe again and again if" + LINEEND + 
-//      "     their mommy's say so." + LINEEND +
-//      "     * We can indent really," + LINEEND +
-//      "       really, deep with three" + LINEEND +
-//      "       levels of subitems." + LINEEND +
-//      "     * But we aren't sure if this" + LINEEND +
-//      "       is getting ridiculous or " + LINEEND + 
-//      "       just plain expected." + LINEEND +
-//      " * Sing, sing, sing till their" + LINEEND +
-//      "   little voices break:" + LINEEND +
-//      "   * Do it again and again and" + LINEEND +
-//      "     again and again." + LINEEND + 
-//      "   * And maybe again and again if" + LINEEND + 
-//      "     their mommy's say so." + LINEEND +
-//      " * Drink coopertino lattes.";
-    System.out.println("LONG_LINE:"); System.out.println(LONG_LINE);
-    System.out.println("EXPECTED:"); System.out.println(EXPECTED);
-    String out = MarkdownFormatter.format (LONG_LINE, 8, LINEEND);
-    System.out.println();
-    System.out.println("ACTUAL:"); System.out.println(out);
-    assertEquals (EXPECTED, MarkdownFormatter.format (LONG_LINE, 8, LINEEND));
+//      " * Cc" + LINEEND +
+//      "   Bb A" + LINEEND + 
+//      "   * Dd" + LINEEND +
+//      "     Ee" + LINEEND + 
+//      " * Ff"; 
+      "Now is the time for all good" + LINEEND +
+      "chickens to:" + LINEEND + LINEEND +
+      " * Cluck, cluck, cluck till their" + LINEEND + 
+      "   little feets hurt:" + LINEEND +
+      "   * Do it again and again and" + LINEEND +
+      "     again and again." + LINEEND + 
+      "   * And maybe again and again if" + LINEEND + 
+      "     their mommy's say so." + LINEEND +
+      "     * We can indent really," + LINEEND +
+      "       really, deep with three" + LINEEND +
+      "       levels of subitems." + LINEEND +
+      "     * But we aren't sure if this" + LINEEND +
+      "       is getting ridiculous or" + LINEEND + 
+      "       just plain expected." + LINEEND +
+      " * Sing, sing, sing till their" + LINEEND +
+      "   little voices break:" + LINEEND +
+      "   * Do it again and again and" + LINEEND +
+      "     again and again." + LINEEND + 
+      "   * And maybe again and again if" + LINEEND + 
+      "     their mommy's say so." + LINEEND +
+      " * Drink coopertino lattes.";
+//    System.out.println("LONG_LINE:" + LONG_LINE.length()); System.out.println(LONG_LINE);
+//    System.out.println("EXPECTED:" + EXPECTED.length()); System.out.println("'" + EXPECTED.replace(" ", "_") + "'");
+//    String out = MarkdownFormatter.format (LONG_LINE, 34, LINEEND);
+//    System.out.println();
+//    System.out.println("ACTUAL:" + out.length()); System.out.println("'" + out.replace(" ", "_") + "'");
+    assertEquals (EXPECTED, MarkdownFormatter.format (LONG_LINE, 34, LINEEND));
   }
   
   /**

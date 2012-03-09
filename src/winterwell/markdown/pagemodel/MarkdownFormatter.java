@@ -146,17 +146,16 @@ public class MarkdownFormatter
       else
         nextChar = 0;
         
-      System.out.print(
-    		  ", State '" + state.name() + "'" +
-    		  ", lineLength " + lineLength +
-    		  ", eWW1 '" + (int)endWordwrap1 + "'" +
-    		  ", eWW2 '" + (int)endWordwrap2 + "'" +
-    		  ", word '" + word.toString() + "'(" + word.length() + ")" +
-    		  ", indent '" + indent.toString() + "'(" + indent.length() + ")" +
-    		  ", buffer '" + buffer.toString() + "'(" + buffer.length() + ")");
-      System.out.print(System.getProperty("line.separator"));
-      System.out.print("i=" + i + ", char '" + c + "'");
-      
+//      System.out.print(
+//    		  ", State '" + state.name() + "'" +
+//    		  ", lineLength " + lineLength +
+//    		  ", eWW1 '" + (int)endWordwrap1 + "'" +
+//    		  ", eWW2 '" + (int)endWordwrap2 + "'" +
+//    		  ", word '" + word.toString() + "'(" + word.length() + ")" +
+//    		  ", indent '" + indent.toString() + "'(" + indent.length() + ")" +
+//    		  ", buffer '" + buffer.toString() + "'(" + buffer.length() + ")");
+//      System.out.print(System.getProperty("line.separator"));
+//      System.out.print("i=" + i + ", char '" + c + "'");
       
       // Are we actually word-wrapping?
       if (endWordwrap1 != 0) {
