@@ -223,7 +223,7 @@ public class MarkdownFormatter
         }
 
         if (Character.isWhitespace (c))
-          indent.append (' ');
+          indent.append (c);
         else if ( (c == '*' || c == '-' || c == '.' ) &&
                 Character.isWhitespace (nextChar) )
           indent.append (' ');
