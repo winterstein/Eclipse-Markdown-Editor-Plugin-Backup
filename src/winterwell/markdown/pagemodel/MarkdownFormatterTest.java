@@ -176,8 +176,10 @@ public class MarkdownFormatterTest extends TestCase
     final String LONG_LINE = 
 //      "Now is the time for all good " +
 //      "chickens to:" + LINEEND + LINEEND +
-      " * Cc" + LINEEND +
-      "   * Dd Ee";
+      " * Cc Bb" + LINEEND +
+      " A" + LINEEND + 
+      "   * Dd Ee" + LINEEND + 
+      " * Ff";
 //      "   * And maybe again and again if their mommy's say so." + LINEEND +
 //      "     * We can indent really, really, deep with three levels of subitems." + LINEEND +
 //      "     * But we aren't sure if this is getting ridiculous or just plain expected." + LINEEND +
@@ -189,8 +191,10 @@ public class MarkdownFormatterTest extends TestCase
 //      "Now is the time for all good" + LINEEND +
 //      "chickens to:" + LINEEND + LINEEND +
       " * Cc" + LINEEND +
+      "   Bb A" + LINEEND + 
       "   * Dd" + LINEEND +
-      "     Ee"; 
+      "     Ee" + LINEEND + 
+      " * Ff"; 
 //      "   * And maybe again and again if" + LINEEND + 
 //      "     their mommy's say so." + LINEEND +
 //      "     * We can indent really," + LINEEND +
@@ -208,8 +212,10 @@ public class MarkdownFormatterTest extends TestCase
 //      " * Drink coopertino lattes.";
     System.out.println("LONG_LINE:"); System.out.println(LONG_LINE);
     System.out.println("EXPECTED:"); System.out.println(EXPECTED);
-    System.out.println("ACTUAL:"); System.out.println(MarkdownFormatter.format (LONG_LINE, 8, LINEEND));
-//    assertEquals (EXPECTED, MarkdownFormatter.format (LONG_LINE, 8, LINEEND));
+    String out = MarkdownFormatter.format (LONG_LINE, 8, LINEEND);
+    System.out.println();
+    System.out.println("ACTUAL:"); System.out.println(out);
+    assertEquals (EXPECTED, MarkdownFormatter.format (LONG_LINE, 8, LINEEND));
   }
   
   /**
@@ -538,6 +544,8 @@ public class MarkdownFormatterTest extends TestCase
   }
   
   public static void main(String[] args) throws Exception {
+	  System.out.println("Line ending has " + LINEEND.length() + " character(s)");
+//	  System.out.println(new char[] {'a', '\r', '\n', 'a'});
 	  testSubindentedBulletedLists();
   }
   

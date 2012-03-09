@@ -145,11 +145,17 @@ public class MarkdownFormatter
         nextChar = text[i+1];
       else
         nextChar = 0;
+        
+      System.out.print(
+    		  ", State '" + state.name() + "'" +
+    		  ", lineLength " + lineLength +
+    		  ", eWW1 '" + (int)endWordwrap1 + "'" +
+    		  ", eWW2 '" + (int)endWordwrap2 + "'" +
+    		  ", word '" + word.toString() + "'(" + word.length() + ")" +
+    		  ", indent '" + indent.toString() + "'(" + indent.length() + ")" +
+    		  ", buffer '" + buffer.toString() + "'(" + buffer.length() + ")");
       System.out.print(System.getProperty("line.separator"));
-      System.out.print("'" + c + "'");
-      System.out.print(" word '" + word.toString() + 
-    		  "', indent '" + indent.toString() + 
-    		  "', buffer '" + buffer.toString() + "'");
+      System.out.print("i=" + i + ", char '" + c + "'");
       
       
       // Are we actually word-wrapping?
@@ -209,7 +215,7 @@ public class MarkdownFormatter
 
       // Normal word-wrapping processing continues ...
       
-      if (state == StatePosition.BEGIN_FIRST_LINE)
+      if (state == StatePosition.BEGIN_FIRST_LINE )
       {
         if ( c == '\n' || c == '\r' ) { // Keep, but ignore initial line feeds
           buffer.append (c);
@@ -218,10 +224,10 @@ public class MarkdownFormatter
         }
 
         if (Character.isWhitespace (c))
-          indent.append ('.');
+          indent.append (' ');
         else if ( (c == '*' || c == '-' || c == '.' ) &&
                 Character.isWhitespace (nextChar) )
-          indent.append ('_');
+          indent.append (' ');
         else if ( Character.isDigit (c) && nextChar == '.' &&
                 Character.isWhitespace (text[i+2]))
           indent.append (' ');
@@ -253,7 +259,39 @@ public class MarkdownFormatter
           else if ( ( ( c == '*' || c == '-' ) && Character.isWhitespace (nextChar) ) ||
                     ( Character.isDigit(c) && nextChar == '.' && Character.isWhitespace( text[i+2] ) ) ) {
             word.append (c);
-            state = StatePosition.BEGIN_NEW_LINE;
+            // Just realized this is a list paragraph, so rewind and re-process 
+            // chars stored in word, which are the previous newline and new 
+            // indent chars up to the list marker *, - or [0-9]. Word wrapping
+            // has already been done at this point.
+            state = StatePosition.BEGIN_FIRST_LINE;
+            lineLength = 0;
+            buffer.append(lineEnding);
+            int rewindLength = word.length();
+            if (word.charAt(0) == '\n')
+            	rewindLength -= 1;
+            else if (word.charAt(0) == '\r' && word.charAt(1) == '\n')
+            	rewindLength -= 2;
+            i -= (rewindLength);
+            indent.setLength(0);
+            word.setLength(0);
+            continue;
+//            if (word.charAt(0) == '\n') {
+//            	buffer.append(lineEnding);
+//            	rewindLength--;
+//            } else if (word.charAt(0))
+//            
+//            i -= rewindLength + 1;	
+//            for (int ii = 0; ii < word.length(); ii++) {
+//            	char cc = word.charAt(ii);
+//                buffer.append(cc);
+//                lineLength += 1;
+//            	if (word.charAt(ii) == ' ' || word.charAt(ii) == '*')
+//            		indent.append(' ');
+//            	if (cc == '\n' || cc == '\r')
+//            		lineLength = 0;
+//            }
+//            word.setLength(0);
+////            i -= word.length()-2;
           }
           else {
             if (state == StatePosition.BEGIN_NEW_LINE) {
