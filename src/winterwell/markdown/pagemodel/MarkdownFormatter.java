@@ -146,17 +146,6 @@ public class MarkdownFormatter
       else
         nextChar = 0;
         
-//      System.out.print(
-//    		  ", State '" + state.name() + "'" +
-//    		  ", lineLength " + lineLength +
-//    		  ", eWW1 '" + (int)endWordwrap1 + "'" +
-//    		  ", eWW2 '" + (int)endWordwrap2 + "'" +
-//    		  ", word '" + word.toString() + "'(" + word.length() + ")" +
-//    		  ", indent '" + indent.toString() + "'(" + indent.length() + ")" +
-//    		  ", buffer '" + buffer.toString() + "'(" + buffer.length() + ")");
-//      System.out.print(System.getProperty("line.separator"));
-//      System.out.print("i=" + i + ", char '" + c + "'");
-      
       // Are we actually word-wrapping?
       if (endWordwrap1 != 0) {
         // Did we get the ending sequence of the non-word-wrap?  
@@ -258,39 +247,24 @@ public class MarkdownFormatter
           else if ( ( ( c == '*' || c == '-' ) && Character.isWhitespace (nextChar) ) ||
                     ( Character.isDigit(c) && nextChar == '.' && Character.isWhitespace( text[i+2] ) ) ) {
             word.append (c);
-            // Just realized this is a list paragraph, so rewind and re-process 
-            // chars stored in word, which are the previous newline and new 
-            // indent chars up to the list marker *, - or [0-9]. Word wrapping
-            // has already been done at this point.
+            // Just realized that this is a sub-indented list paragraph, so 
+            // rewind to the beginning of the line, update state, lineLength, 
+            // word, indent and buffer and resume as if we were beginning a new 
+            // paragraph. 
+            // Append a newline to buffer and adjust the rewind appropriately.
+            // There is no word wrapping to worry about here.
             state = StatePosition.BEGIN_FIRST_LINE;
             lineLength = 0;
             buffer.append(lineEnding);
             int rewindLength = word.length();
             if (word.charAt(0) == '\n')
-            	rewindLength -= 1;
+            	rewindLength -= 1;    // do not rewind into the previous line
             else if (word.charAt(0) == '\r' && word.charAt(1) == '\n')
-            	rewindLength -= 2;
-            i -= (rewindLength);
+            	rewindLength -= 2;    // do not rewind into the previous line
+            i -= rewindLength;
             indent.setLength(0);
             word.setLength(0);
-            continue;
-//            if (word.charAt(0) == '\n') {
-//            	buffer.append(lineEnding);
-//            	rewindLength--;
-//            } else if (word.charAt(0))
-//            
-//            i -= rewindLength + 1;	
-//            for (int ii = 0; ii < word.length(); ii++) {
-//            	char cc = word.charAt(ii);
-//                buffer.append(cc);
-//                lineLength += 1;
-//            	if (word.charAt(ii) == ' ' || word.charAt(ii) == '*')
-//            		indent.append(' ');
-//            	if (cc == '\n' || cc == '\r')
-//            		lineLength = 0;
-//            }
-//            word.setLength(0);
-////            i -= word.length()-2;
+            continue; //resume at the first character of this line
           }
           else {
             if (state == StatePosition.BEGIN_NEW_LINE) {
